@@ -1,0 +1,124 @@
+<div style="margin: 0 auto; width: 450px" class="text-base shadow-md px-8 pt-6 pb-8 w-7/12 flex flex-col bg-gray-100 my-10 max-w-md rounded-3xl text-gray-500">
+    <form autocomplete="off" [formGroup]="form" (ngSubmit)="save()" #frmOrder="ngForm">
+      
+      <div>
+      <mat-form-field class="w-11/12">
+        <mat-label>Nombre de la sesión</mat-label>
+        <input matInput autocomplete="off" formControlName="nombre">
+      </mat-form-field>
+      </div>
+
+      <div>
+      <mat-form-field class="w-10/12">
+        <mat-label>Hora de incio</mat-label>
+        <input matInput autocomplete="off" formControlName="horaInicio" >
+      </mat-form-field>
+      </div>
+
+      <div>
+      <mat-form-field class="w-10/12">
+        <mat-label>Hora de finalización</mat-label>
+        <input matInput autocomplete="off" formControlName="horaFin" >
+      </mat-form-field>
+      </div>
+
+      <div>
+      <mat-form-field class="w-10/12">
+        <mat-label>Link</mat-label>
+        <input matInput autocomplete="off" formControlName="link" >
+      </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="w-10/12">
+          <mat-label>calificacion</mat-label>
+          <input matInput autocomplete="off" formControlName="calificacion" >
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="w-10/12">
+        <mat-label>Anotaciones</mat-label>
+        <textarea matInput autocomplete="off" formControlName="anotaciones"></textarea>
+      </mat-form-field>
+
+    </form>
+</div>
+
+<div style="margin: 0 auto; margin-top: 1.5rem; width: 450px" class="text-base shadow-md px-8 pt-6 pb-8 w-7/12 flex flex-col bg-gray-100 my-10 w-9/12 rounded-3xl text-gray-500">
+    <form autocomplete="off" [formGroup]="form" (ngSubmit)="save()" #frmOrder="ngForm">
+        
+        <div>
+            <mat-form-field appearance="outline" class="w-11/12">
+                <mat-label>Tema (escribe aqui)</mat-label>
+                <input
+                  type="text"
+                  placeholder="Escribe una letra para buscar un tema"
+                  matInput
+                  [matAutocomplete]="autoTema"
+                  [formControl]="myControlTema"
+                  formControlName="tema"
+                />
+
+                <mat-autocomplete
+                  #autoTema="matAutocomplete"
+                  [displayWith]="mostrarTema"
+                >
+                  <mat-option *ngFor="let p of temasFiltrados$ | async" [value]="p">
+                    {{ p.nombre }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <div>
+                    <mat-form-field class="w-10/12">
+                      <mat-label>Fecha</mat-label>
+                      <input type="date" matInput autocomplete="off" formControlName="fecha" >
+                    </mat-form-field>
+               </div>
+
+          </div>
+        
+      <div class="mb-5">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="agregarTema()">
+          Agregar tema
+        </button>
+        <button mat-raised-button color="primary" type="submit">Registrar sesión</button>
+      </div>
+
+      <table>
+        <td>Tema</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Fecha</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </table>
+      
+      <table class="table text-center font-medium" *ngFor="let old of orderLines; let i = index">
+          <td>Tema</td>
+          <td>{{old.tema.nombre}}</td>
+          <td>{{old.tema.descripcion}}</td>
+          <td>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="removerTema(i)">
+              Eliminar
+            </button>
+          </td>
+      </table>
+
+    </form>
+    <div class="text-end mt-5">
+        <button mat-raised-button color="primary" (click)="back()">
+          Atras
+        </button>
+      </div>
+</div>

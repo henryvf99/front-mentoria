@@ -1,0 +1,17 @@
+mat-form-field+mat-form-field {
+    margin-left: 8px;
+}
+
+button {
+    margin-left: 8px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table tr td {
+    padding: 15px 10px;
+    border: 0.5px solid gainsboro;
+}

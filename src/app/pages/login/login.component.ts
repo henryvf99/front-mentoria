@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginData = {
     username : '',
-    password : ''
+    password : ''  
   }
 
 
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
     setTimeout(()=>{
 
       //redireccionamos a la pagina principal
-      this.router.navigate(['']);
+      this.router.navigate(['mentor/agregar']);
       this.loading=false;
     }, 1000)
   }

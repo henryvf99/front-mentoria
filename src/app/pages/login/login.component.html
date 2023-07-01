@@ -14,12 +14,12 @@
         <form class="mt-4" (ngSubmit)="login()">
           <div class="mb-3">
             <label class="mb-2 block text-xs font-semibold">Nombre de usuario</label>
-            <input [(ngModel)]="loginData.username" type="email" placeholder="Ingresa tu usuario" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+            <input [(ngModel)]="loginData.username" name="username" type="email" placeholder="Ingresa tu usuario" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500">
           </div>
 
           <div class="mb-3">
             <label class="mb-2 block text-xs font-semibold">Contraseña</label>
-            <input [(ngModel)]="loginData.password" type="password" placeholder="*****" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+            <input [(ngModel)]="loginData.password" name="password" type="password" placeholder="*****" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500">
           </div>
 
           <div class="mb-3">
