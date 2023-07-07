@@ -18,7 +18,11 @@ export class TemaService {
   }
 
   listarTemas() {
-    return this.http.get<Tema[]>(`${environment.baseUrl}/tema/listar`);
+    return this.http.get<Tema[]>(`${environment.baseUrl}/tema`);
+  }
+
+  public listarTemasPorUsuario(id: number) {
+    return this.http.get<Tema[]>(`${environment.baseUrl}/tema/listar/${id}`);
   }
 
   eliminarTema(id: number) {
@@ -26,7 +30,6 @@ export class TemaService {
   }
 
   getId(id: number) {
-    return this.http.get(`${environment.baseUrl}/tema/listar/${id}`);
+    return this.http.get(`${environment.baseUrl}/tema/${id}`);
   }
-
 }

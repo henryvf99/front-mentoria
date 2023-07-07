@@ -7,95 +7,100 @@ import {LoginService} from "../../services/loginService/login.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
-  loading=false;
+  userActual: any = null;
+
+  loading = false;
 
   loginData = {
-    username : '',
-    password : ''  
+    username: '',
+    password: '',
+  };
+
+  constructor(
+    private titulo: Title,
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private loginService: LoginService
+  ) {
+    titulo.setTitle('Login');
   }
 
-
-  constructor(private titulo:Title, private _snackBar: MatSnackBar, private router: Router, private loginService:LoginService){
-    titulo.setTitle("Login")
-  }
-
-  login(){
+  login() {
     //Verifica si hay un username ingresado
-    if(this.loginData.username.trim() == '' || this.loginData.password.trim() == null){
-      this._snackBar.open('El nombre de usuario es requerido !!','Aceptar',{
-        duration: 3000
-      })
+    if (
+      this.loginData.username.trim() == '' ||
+      this.loginData.password.trim() == null
+    ) {
+      this._snackBar.open('El nombre de usuario es requerido !!', 'Aceptar', {
+        duration: 3000,
+      });
       return;
     }
     //Verifica si hay una password ingresada
-    if(this.loginData.password.trim() == '' || this.loginData.password.trim() == null){
-      this._snackBar.open('La contraseña es requerida !!','Aceptar',{
-        duration: 3000
-      })
+    if (
+      this.loginData.password.trim() == '' ||
+      this.loginData.password.trim() == null
+    ) {
+      this._snackBar.open('La contraseña es requerida !!', 'Aceptar', {
+        duration: 3000,
+      });
       return;
     }
-    this.loginService.generateToken(this.loginData)
-      .subscribe((data:any)=>{
-          console.log(data);
-          this.loginService.loginUser(data.token);
-          this.loginService.getCurrentUser()
-            .subscribe((user:any)=>{
-              this.loginService.setUser(user);
-              if(this.loginService.getUserRole() == "ADMIN"){
-                this.adminLoading();
-                //Mostraremos el dashboard del admin
-                //this.router.navigate(['admin'])
-                this.loginService.loginStatusSubject.next(true);
-              }else if(this.loginService.getUserRole() == "NORMAL"){
-                this.normalLoading();
-                //Mostraremos el dashboard del usuario
-                //this.router.navigate(['user-dashboard'])
-                this.loginService.loginStatusSubject.next(true);
-              }
-              else {
-                this.loginService.logout();
-              }
-            })
-        },(error) =>{
-          this.error();
-        }
-      )
+    this.loginService.generateToken(this.loginData).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.loginService.loginUser(data.token);
+        this.loginService.getCurrentUser().subscribe((user: any) => {
+          this.loginService.setUser(user);
+          this.userActual = this.loginService.getUser();
+          if (this.userActual.ocupacion == 'Estudiante') {
+            this.alumnoLoading();
+            //Mostraremos el dashboard del admin
+            //this.router.navigate(['admin'])
+            this.loginService.loginStatusSubject.next(true);
+          } else if (this.userActual.ocupacion == 'Mentor') {
+            this.mentorLoading();
+            //Mostraremos el dashboard del usuario
+            //this.router.navigate(['user-dashboard'])
+            this.loginService.loginStatusSubject.next(true);
+          } else {
+            this.loginService.logout();
+          }
+        });
+      },
+      (error) => {
+        this.error();
+      }
+    );
   }
 
-
-
-  ngOnInit(): void {
-
-  }
-  error(){
-    this._snackBar.open('Usuario o contraseña invalidos','Aceptar',{
+  ngOnInit(): void {}
+  error() {
+    this._snackBar.open('Usuario o contraseña invalidos', 'Aceptar', {
       duration: 5000,
       horizontalPosition: 'center',
-      verticalPosition: "bottom"
-    })
+      verticalPosition: 'bottom',
+    });
   }
 
-  adminLoading(){
+  alumnoLoading() {
     this.loading = true;
-    setTimeout(()=>{
-
+    setTimeout(() => {
       //redireccionamos a la pagina principal
-      this.router.navigate(['mentor/agregar']);
-      this.loading=false;
-    }, 1000)
+      this.router.navigate(['alumno']);
+      this.loading = false;
+    }, 1000);
   }
-  normalLoading(){
+  mentorLoading() {
     this.loading = true;
-    setTimeout(()=>{
-
+    setTimeout(() => {
       //redireccionamos a la pagina principal
-      this.router.navigate(['']);
-      this.loading=false;
-    }, 1000)
+      this.router.navigate(['home']);
+      this.loading = false;
+    }, 1000);
   }
-
 }

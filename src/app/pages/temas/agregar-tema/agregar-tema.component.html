@@ -1,0 +1,51 @@
+<nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a href="/home" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Inicio</a>
+              <a href="/mentor" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Sesiones</a>
+              <a href="/temas" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Temas</a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+</nav>
+
+<div style="margin-top: 2rem;">
+    <div style="margin: 0 auto; width: 450px" class="text-base shadow-md px-8 pt-6 pb-8 w-7/12 flex flex-col bg-gray-100 my-10 max-w-md rounded-3xl text-gray-500">
+        <form autocomplete="off" [formGroup]="form" (ngSubmit)="save()" #frmOrder="ngForm">
+        
+          <div>
+          <mat-form-field class="w-11/12">
+            <mat-label>Título del tema</mat-label>
+            <input matInput autocomplete="off" formControlName="nombre">
+          </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="w-11/12">
+              <mat-label>Descripcion</mat-label>
+              <input matInput autocomplete="off" formControlName="descripcion" >
+            </mat-form-field>
+          </div>
+
+        </form>
+
+        <button mat-raised-button color="primary" (click)="save()">
+          Agregar
+        </button>
+
+        <button style="margin-top: 1rem;" mat-raised-button color="warn" (click)="back()">
+            Atras
+        </button>
+
+    </div>
+</div>

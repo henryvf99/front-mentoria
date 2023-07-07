@@ -15,6 +15,7 @@ export class AgregarMentoriaComponent implements OnInit {
   create(sesion: any) {
     this.sesionService.agregarSesion(sesion).subscribe(
       (res) => {
+        console.log(sesion);
         this.router.navigate(['/home']);
       },
       (err) => {

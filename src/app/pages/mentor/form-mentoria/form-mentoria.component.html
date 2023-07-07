@@ -10,15 +10,15 @@
 
       <div>
       <mat-form-field class="w-10/12">
-        <mat-label>Hora de incio</mat-label>
-        <input matInput autocomplete="off" formControlName="horaInicio" >
+        <mat-label>Fecha de incio</mat-label>
+        <input type="date" matInput autocomplete="off" formControlName="fechaInicio" >
       </mat-form-field>
       </div>
 
       <div>
       <mat-form-field class="w-10/12">
-        <mat-label>Hora de finalización</mat-label>
-        <input matInput autocomplete="off" formControlName="horaFin" >
+        <mat-label>Fecha de finalización</mat-label>
+        <input type="date" matInput autocomplete="off" formControlName="fechaFin" >
       </mat-form-field>
       </div>
 
@@ -27,13 +27,6 @@
         <mat-label>Link</mat-label>
         <input matInput autocomplete="off" formControlName="link" >
       </mat-form-field>
-      </div>
-
-      <div>
-        <mat-form-field class="w-10/12">
-          <mat-label>calificacion</mat-label>
-          <input matInput autocomplete="off" formControlName="calificacion" >
-        </mat-form-field>
       </div>
 
       <mat-form-field class="w-10/12">
@@ -71,8 +64,8 @@
 
               <div>
                     <mat-form-field class="w-10/12">
-                      <mat-label>Fecha</mat-label>
-                      <input type="date" matInput autocomplete="off" formControlName="fecha" >
+                      <mat-label>Hora</mat-label>
+                      <input type="text" matInput autocomplete="off" formControlName="hora" >
                     </mat-form-field>
                </div>
 
@@ -101,9 +94,8 @@
       </table>
       
       <table class="table text-center font-medium" *ngFor="let old of orderLines; let i = index">
-          <td>Tema</td>
           <td>{{old.tema.nombre}}</td>
-          <td>{{old.tema.descripcion}}</td>
+          <td>{{old.hora}}</td>
           <td>
             <button
               mat-raised-button

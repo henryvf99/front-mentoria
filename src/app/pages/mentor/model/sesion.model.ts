@@ -3,10 +3,11 @@ import {Horario} from './horario.model';
 export class Sesion {
   id: number;
   nombre: string;
-  horaInicio: string;
-  horaFin: string;
+  fechaInicio: string;
+  fechaFin: string;
   link: string;
-  calificacion: string;
+  mentor: string;
   anotaciones: string;
+  iduser: number;
   items: Horario[];
 }

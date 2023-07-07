@@ -1,89 +1,33 @@
+<app-header></app-header>
 <div class="shadow-md px-8 pt-6 pb-8 w-8/12 flex flex-col mx-auto bg-gray-100 mx-12 my-10 w-auto rounded-3xl text-gray-500">
 
-  <mat-form-field appearance="standard">
-    <mat-label>Filtro</mat-label>
-    <input matInput (keyup)="applyFilter($event)" #input>
-  </mat-form-field>
-  <div class="mat-elevation-z8">
-            <table class="tabla-sesiones" mat-table [dataSource]="finalData" matSort>
-             
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  ID
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-              </ng-container>
+  <mat-card *ngFor="let dato of sesiones" style="margin-bottom: 20px;">
+      
+      <mat-card-header>
+        <mat-card-title>{{ dato.nombre }}</mat-card-title>
+      </mat-card-header>
 
-              
-              <ng-container matColumnDef="nombre">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Nombre
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-              </ng-container>
-              
-              <ng-container matColumnDef="horaInicio">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Hora de inicio
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.horaInicio}} </td>
-              </ng-container>
-              
-              <ng-container matColumnDef="horaFin">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Hora de finalización
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.horaFin}} </td>
-              </ng-container>
+      <mat-card-content>
 
-             
-              <ng-container matColumnDef="link">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Link
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.link}} </td>
-              </ng-container>
+        <div style="display: flex;">
+          <p style="padding-right: 5px;">Mentor:</p>
+          <p>{{ dato.mentor }}</p>
+        </div>
 
-              
-              <ng-container matColumnDef="calificacion">
-                <th mat-header-cell *matHeaderCellDef>
-                  calificacion
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.calificacion}} </td>
-              </ng-container>
-             
-              <ng-container matColumnDef="anotaciones">
-                <th mat-header-cell *matHeaderCellDef>
-                  Anotaciones
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element.anotaciones}} </td>
-              </ng-container>
-              
-              <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef="let i = index">
-                  Acciones
-                </th>
-                <td mat-cell *matCellDef="let Sesion" class="align-middle">
-                  <a class="cursor-pointer ml-2 text-red-800" matTooltip="Ver sesión completa">
-                    <button mat-button color="primary" mat-raised-button (click)="verTemas(Sesion.id)">
-                      <mat-icon>view_agenda</mat-icon>
-                    </button>
-                  </a>
-                  <a class="cursor-pointer ml-2 text-red-800" matTooltip="Eliminar sesión">
-                    <button mat-button color="warn" mat-raised-button mat-button (click)="delete(Sesion.id)">
-                      <mat-icon>delete</mat-icon>
-                    </button>
-                  </a>
-                </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page">
-      </mat-paginator>
+        <div style="display: flex;">
+          <p style="padding-right: 5px;">Fecha de inicio:</p>
+          <p>{{ dato.fechaInicio }}</p>
+        </div>
 
-    </div>
-    <div class="my-2">
-      <button [routerLink]="['/mentor/agregar']" class="block w-full py-2 rounded-2xl hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2" mat-raised-button color="primary">Agregar reserva</button>
-    </div>
+        <div style="display: flex;">
+          <p style="padding-right: 5px;">Fecha de finalización:</p>
+          <p>{{ dato.fechaFin }}</p>
+        </div>
+        
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button style="background-color: #3F51B5; color: white;" class="boton-upd"  mat-button color="primary" [routerLink]="[dato.id, 'sesion']">Ver más</button>
+      </mat-card-actions>
+  </mat-card>
 </div>

@@ -2,40 +2,31 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MentoriaService } from '../../../services/mentoria/mentoria.service';
-import { LoginService } from '../../../services/loginService/login.service';
+import { TemaService } from '../../../services/tema/tema.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Sesion } from '../../mentor/model/sesion.model';
+import { Tema } from '../../mentor/model/tema.model';
 import Swal from 'sweetalert2';
+import {LoginService} from '../../../services/loginService/login.service';
 
 @Component({
-  selector: 'app-listar-mentoria',
-  templateUrl: './listar-mentoria.component.html',
-  styleUrls: ['./listar-mentoria.component.css'],
+  selector: 'app-listar-tema',
+  templateUrl: './listar-tema.component.html',
+  styleUrls: ['./listar-tema.component.css'],
 })
-export class ListarMentoriaComponent implements OnInit {
-  displayedColumns: string[] = [
-    'id',
-    'nombre',
-    'fechaInicio',
-    'fechaFin',
-    'link',
-    'anotaciones',
-    'acciones',
-  ];
+export class ListarTemaComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'acciones'];
 
-  userActual: any = null;
-
-  sesiones: Sesion[];
+  temas: Tema[];
   @ViewChild(MatPaginator) _paginator!: MatPaginator;
   @ViewChild(MatSort) _sort!: MatSort;
 
   finalData: any;
   form: FormGroup;
+  userActual: any = null;
 
   constructor(
-    private sesionService: MentoriaService,
+    private temaService: TemaService,
     private router: Router,
     public login: LoginService,
     private fb: FormBuilder
@@ -43,20 +34,17 @@ export class ListarMentoriaComponent implements OnInit {
     this.form = this.fb.group({
       id: ['', Validators.required, Validators.pattern('[0-9]')],
       nombre: ['', Validators.required],
-      fechaInicio: ['', Validators.required],
-      fechaFin: ['', Validators.required],
-      link: ['', Validators.required],
-      anotaciones: ['', Validators.required],
+      descripcion: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.cargarSesiones();
+    this.cargarTemasDelUsuario();
   }
 
   delete(id: number) {
     Swal.fire({
-      title: '¿Estás seguro qué deseas eliminar la sesion?',
+      title: '¿Estás seguro qué deseas eliminar el tema?',
       text: 'La acción no se puede revertir',
       icon: 'warning',
       showCancelButton: true,
@@ -66,10 +54,10 @@ export class ListarMentoriaComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result: any) => {
       if (result.isConfirmed) {
-        this.sesionService.eliminarSesion(id).subscribe(() => {
-          this.cargarSesiones();
+        this.temaService.eliminarTema(id).subscribe(() => {
+          this.cargarTemas();
         });
-        Swal.fire('Eliminado!', 'Eliminaste la sesion.', 'success').then(
+        Swal.fire('Eliminado!', 'Eliminaste el tema.', 'success').then(
           (okay) => {
             if (okay) {
               window.location.reload();
@@ -80,19 +68,27 @@ export class ListarMentoriaComponent implements OnInit {
     });
   }
 
-  cargarSesiones() {
+  cargarTemas() {
+    this.temaService.listarTemas().subscribe((dato) => {
+      this.temas = dato;
+      this.finalData = new MatTableDataSource<Tema>(this.temas);
+      this.finalData.paginator = this._paginator;
+      this.finalData.sort = this._sort;
+    });
+  }
+
+  cargarTemasDelUsuario() {
     this.userActual = this.login.getUser();
-    this.sesionService
-      .listarNotasPorUsuario(this.userActual.id)
-      .subscribe((data: any) => {
+    this.temaService.listarTemasPorUsuario(this.userActual.id).subscribe((data: any) => {
         this.finalData = new MatTableDataSource(data['body']);
         this.finalData.paginator = this._paginator;
         this.finalData.sort = this._sort;
+        console.log(data['body']);
       });
   }
 
-  verTemas(id: number) {
-    this.router.navigate(['/view', id]);
+  actualizar(id: number) {
+    this.router.navigate(['/update', id]);
   }
 
   ngAfterViewInit() {}

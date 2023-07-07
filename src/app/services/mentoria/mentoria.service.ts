@@ -10,21 +10,24 @@ import { Observable } from 'rxjs';
 export class MentoriaService {
   constructor(private http: HttpClient) {}
 
-  
   agregarSesion(sesion: Sesion) {
-    return this.http.post(`${environment.baseUrl}/sesion/`, sesion);
-  }
-  
-  listarSesion() {
-    return this.http.get<Sesion[]>(`${environment.baseUrl}/sesion/listar`);
+    return this.http.post(`${environment.baseUrl}/sesion`, sesion);
   }
 
-  
+  listarSesion() {
+    return this.http.get<Sesion[]>(`${environment.baseUrl}/sesion`);
+  }
+
   eliminarSesion(id: number): Observable<any> {
     return this.http.delete(`${environment.baseUrl}/sesion/${id}`);
   }
 
   getId(id: number) {
-    return this.http.get(`${environment.baseUrl}/sesion/listar/${id}`);
+    return this.http.get(`${environment.baseUrl}/sesion/${id}`);
   }
+
+  public listarNotasPorUsuario(id: number) {
+    return this.http.get<Sesion[]>(`${environment.baseUrl}/sesion/listar/${id}`);
+  }
+
 }

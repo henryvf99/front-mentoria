@@ -2,6 +2,6 @@ import {Tema} from './tema.model';
 
 export class Horario {
   id: number;
-  fecha: string;
+  hora: string;
   tema: Tema;
 }

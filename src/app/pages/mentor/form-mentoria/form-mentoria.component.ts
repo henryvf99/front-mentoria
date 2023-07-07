@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { MentoriaService } from '../../../services/mentoria/mentoria.service';
+import { LoginService } from '../../../services/loginService/login.service';
 import { TemaService } from '../../../services/tema/tema.service';
 import { Tema } from '../model/tema.model';
 import { Sesion } from '../model/sesion.model';
@@ -20,6 +21,10 @@ export class FormMentoriaComponent implements OnInit {
 
   orderLines: Horario[] = [];
 
+  mentor: string = '';
+  userActual: any = null;
+  userTemas: any = null;
+
   myControlTema = new FormControl();
   temasFiltrados$: Observable<Tema[]>;
 
@@ -29,19 +34,19 @@ export class FormMentoriaComponent implements OnInit {
   constructor(
     private serviceSesion: MentoriaService,
     private serviceTema: TemaService,
+    public login: LoginService,
     private location: Location
   ) {}
 
   ngOnInit(): void {
-
     this.form = new FormGroup({
       nombre: new FormControl(),
-      horaInicio: new FormControl(),
-      horaFin: new FormControl(),
+      fechaInicio: new FormControl(),
+      fechaFin: new FormControl(),
       link: new FormControl(),
       calificacion: new FormControl(),
       anotaciones: new FormControl(),
-      fecha: new FormControl(),
+      hora: new FormControl(),
       tema: this.myControlTema,
     });
 
@@ -50,12 +55,12 @@ export class FormMentoriaComponent implements OnInit {
     this.temasFiltrados$ = this.myControlTema.valueChanges.pipe(
       map((val) => this.filtrarTemas(val))
     );
-
   }
 
   listarTemas() {
-    this.serviceTema.listarTemas().subscribe((data: any) => {
-      this.temas = data;
+    this.userTemas = this.login.getUser();
+    this.serviceTema.listarTemasPorUsuario(this.userTemas.id).subscribe((data: any) => {
+      this.temas = data?.body;
     });
   }
 
@@ -79,13 +84,13 @@ export class FormMentoriaComponent implements OnInit {
     if (this.form.value['tema']) {
       let orderLine = new Horario();
 
-      var fecha = this.form.value['fecha'];
+      var fecha = this.form.value['hora'];
       var resFecha = fecha.split('-');
       var reversedFecha = resFecha.reverse();
       var fechaOb = reversedFecha.join('/');
 
-      orderLine.fecha = fechaOb;
-      
+      orderLine.hora = this.form.value['hora'];
+
       orderLine.tema = this.form.value['tema'];
 
       this.orderLines.push(orderLine);
@@ -97,15 +102,29 @@ export class FormMentoriaComponent implements OnInit {
   }
 
   save() {
+    this.userActual = this.login.getUser();
     let sesion = new Sesion();
     sesion.nombre = this.form.value['nombre'];
-    sesion.horaInicio = this.form.value['horaInicio'];
-    sesion.horaFin = this.form.value['horaFin'];
+
+    var fecha = this.form.value['fechaInicio'];
+    var resFecha = fecha.split('-');
+    var reversedFecha = resFecha.reverse();
+    var fechaI = reversedFecha.join('/');
+    sesion.fechaInicio = fechaI;
+
+    var fechaA = this.form.value['fechaFin'];
+    var guFecha = fechaA.split('-');
+    var reverseFecha = guFecha.reverse();
+    var fechaF = reverseFecha.join('/');
+
+    sesion.fechaFin = fechaF;
+
     sesion.link = this.form.value['link'];
-    sesion.calificacion = this.form.value['calificacion'];
     sesion.anotaciones = this.form.value['anotaciones'];
     sesion.items = this.orderLines;
-    //console.log(fechaOb);
+    sesion.iduser = this.userActual.id;
+    this.mentor = this.userActual.nombre + ' ' + this.userActual.apellido;
+    sesion.mentor = this.mentor;
     this.onSave.emit(sesion);
   }
   back(): void {

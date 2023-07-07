@@ -1,36 +1,66 @@
 import { Component, OnInit } from '@angular/core';
 import {RegisterService} from "../../services/registerService/register.service";
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  form: FormGroup;
 
   public user = {
     username: '',
     password: '',
-    email: '',
-  }
-  constructor(private registerService:RegisterService){
-  }
+    nombre: '',
+    apellido: '',
+    dni: '',
+    celular: '',
+    ocupacion: '',
+  };
 
-  register(){
-    if(this.user.username == '' || this.user.username == null){
-      alert("El nombre de usuario es requerido");
-      return;
-    }
-    this.registerService.añadirUsuario(this.user)
-      .subscribe(res=>{
-        console.log("Registrado!")
-      },error => {
-        console.log(error);
-      })
-  }
+  tipo: any[] = ['Estudiante', 'Mentor'];
 
+  constructor(
+    private registerService: RegisterService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      username: new FormControl(),
+      password: new FormControl(),
+      nombre: new FormControl(),
+      apellido: new FormControl(),
+      dni: new FormControl(),
+      celular: new FormControl(),
+      ocupacion: new FormControl(),
+    });
+  }
 
+  register() {
+    this.user.username = this.form.value['username'];
+    this.user.password = this.form.value['password'];
+    this.user.nombre = this.form.value['nombre'];
+    this.user.apellido = this.form.value['apellido'];
+    this.user.dni = this.form.value['dni'];
+    this.user.celular = this.form.value['celular'];
+    this.user.ocupacion = this.form.value['ocupacion'];
+
+    if (this.user.username == '' || this.user.username == null) {
+      alert('El nombre de usuario es requerido');
+      return;
+    }
+    this.registerService.añadirUsuario(this.user).subscribe(
+      (res) => {
+        console.log('Registrado!');
+        this.router.navigate(['login']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
