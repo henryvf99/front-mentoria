@@ -42,6 +42,11 @@ export class ListarTemaComponent implements OnInit {
     this.cargarTemasDelUsuario();
   }
 
+  public logout() {
+    this.login.logout();
+    this.router.navigate(['/login']);
+  }
+
   delete(id: number) {
     Swal.fire({
       title: '¿Estás seguro qué deseas eliminar el tema?',
@@ -55,7 +60,7 @@ export class ListarTemaComponent implements OnInit {
     }).then((result: any) => {
       if (result.isConfirmed) {
         this.temaService.eliminarTema(id).subscribe(() => {
-          this.cargarTemas();
+          this.cargarTemasDelUsuario();
         });
         Swal.fire('Eliminado!', 'Eliminaste el tema.', 'success').then(
           (okay) => {
@@ -79,16 +84,13 @@ export class ListarTemaComponent implements OnInit {
 
   cargarTemasDelUsuario() {
     this.userActual = this.login.getUser();
-    this.temaService.listarTemasPorUsuario(this.userActual.id).subscribe((data: any) => {
+    this.temaService
+      .listarTemasPorUsuario(this.userActual.id)
+      .subscribe((data: any) => {
         this.finalData = new MatTableDataSource(data['body']);
         this.finalData.paginator = this._paginator;
         this.finalData.sort = this._sort;
-        console.log(data['body']);
       });
-  }
-
-  actualizar(id: number) {
-    this.router.navigate(['/update', id]);
   }
 
   ngAfterViewInit() {}

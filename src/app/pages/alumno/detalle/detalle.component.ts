@@ -5,6 +5,7 @@ import { Tema } from '../../mentor/model/tema.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
+import { LoginService } from '../../../services/loginService/login.service';
 
 @Component({
   selector: 'app-detalle',
@@ -23,6 +24,8 @@ export class DetalleComponent implements OnInit {
   constructor(
     private sesionService: MentoriaService,
     private location: Location,
+    private router: Router,
+    public login: LoginService,
     private activeRoute: ActivatedRoute
   ) {
     this.activeRoute.paramMap.subscribe((paramMap) => {
@@ -37,8 +40,12 @@ export class DetalleComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  public logout() {
+    this.login.logout();
+    this.router.navigate(['/login']);
+  }
+
   back(): void {
     this.location.back();
   }
-  
 }

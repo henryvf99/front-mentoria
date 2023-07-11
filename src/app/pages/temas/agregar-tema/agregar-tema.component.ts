@@ -46,6 +46,11 @@ export class AgregarTemaComponent implements OnInit {
     );
   }
 
+  public logout() {
+    this.login.logout();
+    this.router.navigate(['/login']);
+  }
+
   back(): void {
     this.location.back();
   }

@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { MentoriaService } from '../../services/mentoria/mentoria.service';
-import { Sesion } from '../mentor/model/sesion.model';
-import { Tema } from '../mentor/model/tema.model';
+import { MentoriaService } from '../../../services/mentoria/mentoria.service';
+import { Sesion } from '../../mentor/model/sesion.model';
+import { Tema } from '../../mentor/model/tema.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
-import { LoginService } from '../../services/loginService/login.service';
-
+import { LoginService } from '../../../services/loginService/login.service';
 @Component({
-  selector: 'app-sesion-detalle',
-  templateUrl: './sesion-detalle.component.html',
-  styleUrls: ['./sesion-detalle.component.css'],
+  selector: 'app-detalle-mentoria',
+  templateUrl: './detalle-mentoria.component.html',
+  styleUrls: ['./detalle-mentoria.component.css'],
 })
-export class SesionDetalleComponent implements OnInit {
+export class DetalleMentoriaComponent implements OnInit {
   dataSource: MatTableDataSource<string>;
   displayedColumns: string[] = ['fecha', 'nombre'];
 
@@ -48,4 +47,5 @@ export class SesionDetalleComponent implements OnInit {
   back(): void {
     this.location.back();
   }
+
 }

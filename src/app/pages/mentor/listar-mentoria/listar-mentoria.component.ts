@@ -92,7 +92,12 @@ export class ListarMentoriaComponent implements OnInit {
   }
 
   verTemas(id: number) {
-    this.router.navigate(['/view', id]);
+    this.router.navigate(['/home/:id/sesion', id]);
+  }
+
+  public logout() {
+    this.login.logout();
+    this.router.navigate(['/login']);
   }
 
   ngAfterViewInit() {}

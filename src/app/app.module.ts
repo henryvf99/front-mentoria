@@ -43,10 +43,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HeaderComponent } from './pages/header/header.component';
 import { AgregarTemaComponent } from './pages/temas/agregar-tema/agregar-tema.component';
 import { ListarTemaComponent } from './pages/temas/listar-tema/listar-tema.component';
-import { FormTemaComponent } from './pages/temas/form-tema/form-tema.component';
 import { SesionDetalleComponent } from './pages/sesion-detalle/sesion-detalle.component';
 import { HomeComponent } from './pages/alumno/home/home.component';
 import { DetalleComponent } from './pages/alumno/detalle/detalle.component';
+import { ActualizarTemaComponent } from './pages/temas/actualizar-tema/actualizar-tema.component';
+import { DetalleMentoriaComponent } from './pages/mentor/detalle-mentoria/detalle-mentoria.component';
 
 @NgModule({
   declarations: [
@@ -60,10 +61,11 @@ import { DetalleComponent } from './pages/alumno/detalle/detalle.component';
     HeaderComponent,
     AgregarTemaComponent,
     ListarTemaComponent,
-    FormTemaComponent,
     SesionDetalleComponent,
     HomeComponent,
     DetalleComponent,
+    ActualizarTemaComponent,
+    DetalleMentoriaComponent,
   ],
   imports: [
     BrowserModule,

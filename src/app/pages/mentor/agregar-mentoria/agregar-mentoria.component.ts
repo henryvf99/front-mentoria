@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {MentoriaService} from '../../../services/mentoria/mentoria.service';
+import { LoginService } from '../../../services/loginService/login.service';
 
 @Component({
   selector: 'app-agregar-mentoria',
@@ -8,7 +9,11 @@ import {MentoriaService} from '../../../services/mentoria/mentoria.service';
   styleUrls: ['./agregar-mentoria.component.css'],
 })
 export class AgregarMentoriaComponent implements OnInit {
-  constructor(private sesionService: MentoriaService, private router: Router) {}
+  constructor(
+    private sesionService: MentoriaService,
+    private router: Router,
+    public login: LoginService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -24,4 +29,8 @@ export class AgregarMentoriaComponent implements OnInit {
     );
   }
 
+  public logout() {
+    this.login.logout();
+    this.router.navigate(['/login']);
+  }
 }
