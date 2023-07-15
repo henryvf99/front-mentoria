@@ -10,10 +10,6 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {HttpClientModule} from "@angular/common/http";
 import { RegisterComponent } from './pages/register/register.component';
 import {AuthInterceptor} from "./services/auth.interceptor";
-import { InicioComponent } from './pages/inicio/inicio.component';
-import { AgregarMentoriaComponent } from './pages/mentor/agregar-mentoria/agregar-mentoria.component';
-import { ListarMentoriaComponent } from './pages/mentor/listar-mentoria/listar-mentoria.component';
-import { FormMentoriaComponent } from './pages/mentor/form-mentoria/form-mentoria.component';
 
 import { authInterceptorProviders } from './services/auth.interceptor';
 
@@ -41,31 +37,27 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HeaderComponent } from './pages/header/header.component';
-import { AgregarTemaComponent } from './pages/temas/agregar-tema/agregar-tema.component';
-import { ListarTemaComponent } from './pages/temas/listar-tema/listar-tema.component';
-import { SesionDetalleComponent } from './pages/sesion-detalle/sesion-detalle.component';
-import { HomeComponent } from './pages/alumno/home/home.component';
-import { DetalleComponent } from './pages/alumno/detalle/detalle.component';
-import { ActualizarTemaComponent } from './pages/temas/actualizar-tema/actualizar-tema.component';
-import { DetalleMentoriaComponent } from './pages/mentor/detalle-mentoria/detalle-mentoria.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AgregarServicioComponent } from './pages/servicios/agregar-servicio/agregar-servicio.component';
+import { EditarServicioComponent } from './pages/servicios/editar-servicio/editar-servicio.component';
+import { ListarServicioComponent } from './pages/servicios/listar-servicio/listar-servicio.component';
+import { AgregarContratoComponent } from './pages/contratos/agregar-contrato/agregar-contrato.component';
+import { ListarContratoComponent } from './pages/contratos/listar-contrato/listar-contrato.component';
+import { FooterComponent } from './pages/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    InicioComponent,
-    AgregarMentoriaComponent,
-    ListarMentoriaComponent,
-    FormMentoriaComponent,
     HeaderComponent,
-    AgregarTemaComponent,
-    ListarTemaComponent,
-    SesionDetalleComponent,
     HomeComponent,
-    DetalleComponent,
-    ActualizarTemaComponent,
-    DetalleMentoriaComponent,
+    AgregarServicioComponent,
+    EditarServicioComponent,
+    ListarServicioComponent,
+    AgregarContratoComponent,
+    ListarContratoComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

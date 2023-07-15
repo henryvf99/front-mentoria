@@ -34,9 +34,6 @@ export class RegisterComponent implements OnInit {
       password: new FormControl(),
       nombre: new FormControl(),
       apellido: new FormControl(),
-      dni: new FormControl(),
-      celular: new FormControl(),
-      ocupacion: new FormControl(),
     });
   }
 
@@ -45,9 +42,6 @@ export class RegisterComponent implements OnInit {
     this.user.password = this.form.value['password'];
     this.user.nombre = this.form.value['nombre'];
     this.user.apellido = this.form.value['apellido'];
-    this.user.dni = this.form.value['dni'];
-    this.user.celular = this.form.value['celular'];
-    this.user.ocupacion = this.form.value['ocupacion'];
 
     if (this.user.username == '' || this.user.username == null) {
       alert('El nombre de usuario es requerido');

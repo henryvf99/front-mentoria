@@ -57,15 +57,10 @@ export class LoginComponent implements OnInit {
         this.loginService.getCurrentUser().subscribe((user: any) => {
           this.loginService.setUser(user);
           this.userActual = this.loginService.getUser();
-          if (this.userActual.ocupacion == 'Estudiante') {
-            this.alumnoLoading();
+          if (this.loginService.getUserRole() == 'USER') {
+            this.userLoading();
             //Mostraremos el dashboard del admin
-            //this.router.navigate(['admin'])
-            this.loginService.loginStatusSubject.next(true);
-          } else if (this.userActual.ocupacion == 'Mentor') {
-            this.mentorLoading();
-            //Mostraremos el dashboard del usuario
-            //this.router.navigate(['user-dashboard'])
+            console.log('logeado');
             this.loginService.loginStatusSubject.next(true);
           } else {
             this.loginService.logout();
@@ -87,15 +82,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  alumnoLoading() {
-    this.loading = true;
-    setTimeout(() => {
-      //redireccionamos a la pagina principal
-      this.router.navigate(['alumno']);
-      this.loading = false;
-    }, 1000);
-  }
-  mentorLoading() {
+  userLoading() {
     this.loading = true;
     setTimeout(() => {
       //redireccionamos a la pagina principal
@@ -103,4 +90,5 @@ export class LoginComponent implements OnInit {
       this.loading = false;
     }, 1000);
   }
+
 }

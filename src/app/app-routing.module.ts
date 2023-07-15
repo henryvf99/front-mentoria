@@ -1,79 +1,51 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from "./pages/login/login.component";
-import { SesionDetalleComponent } from './pages/sesion-detalle/sesion-detalle.component';
 import {RegisterComponent} from "./pages/register/register.component";
-import {InicioComponent} from './pages/inicio/inicio.component';
-import {AgregarMentoriaComponent} from './pages/mentor/agregar-mentoria/agregar-mentoria.component';
-import { ListarMentoriaComponent } from './pages/mentor/listar-mentoria/listar-mentoria.component';
-import { DetalleMentoriaComponent } from './pages/mentor/detalle-mentoria/detalle-mentoria.component';
 import { IsLoggedInGuard } from './guards/isLoggedIn/is-logged-in.guard';
-import {ListarTemaComponent} from './pages/temas/listar-tema/listar-tema.component';
-import { HomeComponent } from './pages/alumno/home/home.component';
-import { DetalleComponent } from './pages/alumno/detalle/detalle.component';
-import { ActualizarTemaComponent } from './pages/temas/actualizar-tema/actualizar-tema.component';
-import { AgregarTemaComponent } from './pages/temas/agregar-tema/agregar-tema.component';
+import {HomeComponent} from './pages/home/home.component';
+import { ListarServicioComponent } from './pages/servicios/listar-servicio/listar-servicio.component';
+import { EditarServicioComponent } from './pages/servicios/editar-servicio/editar-servicio.component';
+import { AgregarServicioComponent } from './pages/servicios/agregar-servicio/agregar-servicio.component';
+import { ListarContratoComponent } from './pages/contratos/listar-contrato/listar-contrato.component';
+import { AgregarContratoComponent } from './pages/contratos/agregar-contrato/agregar-contrato.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
     path: 'home',
-    component: InicioComponent,
-    pathMatch: 'full',
-    canActivate: [IsLoggedInGuard],
-  },
-  {
-    path: 'alumno',
     component: HomeComponent,
     pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
   },
   {
-    path: 'home/:id/sesion',
-    component: SesionDetalleComponent,
+    path: 'servicio',
+    component: ListarServicioComponent,
     pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
   },
   {
-    path: 'alumno/:id/detalle',
-    component: DetalleComponent,
+    path: 'servicio/agregar',
+    component: AgregarServicioComponent,
     pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
   },
   {
-    path: 'mentor/agregar',
-    component: AgregarMentoriaComponent,
+    path: 'servicio/:id/edit',
+    component: EditarServicioComponent,
     pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
   },
   {
-    path: 'mentor',
-    component: ListarMentoriaComponent,
+    path: 'contrato',
+    component: ListarContratoComponent,
     pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
   },
   {
-    path: 'mentor/:id/detalle',
-    component: DetalleMentoriaComponent,
-    pathMatch: 'full',
-    canActivate: [IsLoggedInGuard],
-  },
-  {
-    path: 'temas',
-    component: ListarTemaComponent,
-    pathMatch: 'full',
-    canActivate: [IsLoggedInGuard],
-  },
-  {
-    path: 'temas/:id/edit',
-    component: ActualizarTemaComponent,
-    pathMatch: 'full',
-    canActivate: [IsLoggedInGuard],
-  },
-  {
-    path: 'temas/agregar',
-    component: AgregarTemaComponent,
+    path: 'home/:id/contrato',
+    component: AgregarContratoComponent,
     pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
   },

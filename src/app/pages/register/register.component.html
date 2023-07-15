@@ -102,61 +102,6 @@
             </div>
           </div>
 
-          <div class="flex flex-col mb-5">
-            <label for="dni" class="mb-1 text-xs tracking-wide text-gray-600"
-              >DNI:</label
-            >
-            <div class="relative">
-              <div
-                class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
-              >
-                <i class="fas fa-at text-blue-500"></i>
-              </div>
-
-              <input
-                id="dni"
-                formControlName="dni"
-                type="text"
-                name="dni"
-                class="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="Ingresa tu DNI"
-              />
-            </div>
-          </div>
-
-          <div class="flex flex-col mb-5">
-            <label for="celular" class="mb-1 text-xs tracking-wide text-gray-600"
-              >Celular:</label
-            >
-            <div class="relative">
-              <div
-                class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
-              >
-                <i class="fas fa-at text-blue-500"></i>
-              </div>
-
-              <input
-                id="celular"
-                formControlName="celular"
-                type="text"
-                name="celular"
-                class="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="Ingresa tu celular"
-              />
-            </div>
-          </div>
-
-          <div class="flex flex-col mb-5">
-            <mat-form-field  class="w-11/12">
-            <mat-label>Ocupación</mat-label>
-            <mat-select formControlName="ocupacion">
-              <mat-option *ngFor="let tipo of tipo" [value]="tipo">
-                {{tipo}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          </div>
-
           <div class="flex w-full">
             <button
               type="submit"
